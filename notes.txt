@@ -1,0 +1,9 @@
+lib: 
+    graphql: main library
+    express-graphql: middleware to express
+
+data-def:
+    schema: provides object defination with graphql object types
+    RootSchema: entry point of graphql operation, has a resolve function to call DB and pass arguments.
+    can have graphQLtype of a custom type. Custom type should have a resolve method to fetch that data. Custom types are usuful to create an association of data.
+    

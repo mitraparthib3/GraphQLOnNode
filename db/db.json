@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": "20",
+      "firstName": "Parthib",
+      "lastName": "Mitra",
+      "age": 28,
+      "companyId": "1"
+    },
+     {
+      "id": "21",
+      "firstName": "Shanta",
+      "lastName": "Mitra",
+      "age": 29,
+      "companyId": "1"
+    },
+    {
+      "id": "47",
+      "firstName": "Sam",
+      "lastName": "Hazen",
+      "age": 34,
+      "companyId": "2"
+    },
+    {
+      "id": "40",
+      "firstName": "Bimal",
+      "lastName": "Kar",
+      "age": 34,
+      "companyId": "2"
+    },
+    {
+      "id": "69",
+      "firstName": "Marty",
+      "lastName": "Owen",
+      "age": 64,
+      "companyId": "3"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "name": "HCA Healthcare",
+      "description": "Healthcare"
+    },
+    {
+      "id": "2",
+      "name": "Apple",
+      "description": "IT"
+    },
+    {
+      "id": "3",
+      "name": "Google",
+      "description": "IT"
+    }
+  ]
+}
