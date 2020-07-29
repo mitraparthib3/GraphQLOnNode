@@ -1,19 +1,14 @@
 // data models, tells more about how data sections are connected to each other
 
-const  {
+const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
   GraphQLList,
   GraphQLSchema,
+  GraphQLNonNull,
 } = require("graphql");
 const axios = require("axios");
-const { MongoClient } = require("mongodb");
-
-const mongoConString =
-  "mongodb+srv://admin:Ij6RXPCTIlChiTtv@cluster0.6bkeq.mongodb.net/userdb?retryWrites=true&w=majority";
-const client = new MongoClient(mongoConString);
-
 
 // defination of comapny object
 const CompanyType = new GraphQLObjectType({
@@ -84,6 +79,59 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+// this section is for adding, updating and deleting entries through graphQL
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: () => ({
+    addUser: {
+      type: UserType,
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        companyId: { type: GraphQLString },
+      },
+      resolve(parentValue, { firstName, age }) {
+        return axios
+          .post(`http://localhost:3000/users`, {
+            firstName,
+            age,
+          })
+          .then((resp) => resp.data);
+      },
+    },
+    editUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString },
+      },
+      resolve(parentValue, { id, firstName, age, companyId }) {
+        return axios
+          .patch(`http://localhost:3000/users/${id}`, {
+            firstName,
+            age,
+            companyId,
+          })
+          .then((resp) => resp.data);
+      },
+    },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parentValue, { id }) {
+        return axios
+          .delete(`http://localhost:3000/users/${id}`)
+          .then((resp) => resp.data);
+      },
+    },
+  }),
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
